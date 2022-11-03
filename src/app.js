@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
-import ejsConfig from './config/ejs.js'
+import ejsConfig from "./config/ejs.js";
 
 dotenv.config();
 
@@ -12,6 +12,7 @@ const app = express();
 ejsConfig(app);
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(process.cwd + "/public"));
 
 app.use("/api", apiRouter);
