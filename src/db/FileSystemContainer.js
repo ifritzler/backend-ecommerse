@@ -16,26 +16,29 @@ class FileSystemContainer {
       throw error;
     }
   }
+
   async save(entity) {
     try {
       const data = await this.all();
       const newEntity = { id: data[data.length - 1].id + 1, ...entity };
       data.push(newEntity);
-      await fs.writeFile(this.path, JSON.stringify(data));
+      await fs.writeFile(this.path, JSON.stringify(data, null, 2));
+
       return newEntity;
     } catch (error) {
       const firstEntity = { id: 1, ...entity };
-      await fs.writeFile(this.path, JSON.stringify([firstEntity], null, 4));
+      await fs.writeFile(this.path, JSON.stringify([firstEntity], null, 2));
+
       return firstEntity;
     }
   }
+
   async getById(id) {
     const data = await this.all();
     const entity = data.find((ent) => ent.id == id);
-    if (!entity) throw new Error(`Product with id ${id} not found`);
-
     return entity;
   }
+
   async edit(id, changes) {
     const data = await this.all();
     const newData = data.map((ent) => {
@@ -44,12 +47,13 @@ class FileSystemContainer {
       }
       return ent;
     });
-    await fs.writeFile(this.path, JSON.stringify(newData, null, 4));
+    await fs.writeFile(this.path, JSON.stringify(newData, null, 2));
   }
+
   async remove(id) {
     const data = await this.all();
     const newData = data.filter((ent) => ent.id != id);
-    await fs.writeFile(this.path, JSON.stringify(newData, null, 4));
+    await fs.writeFile(this.path, JSON.stringify(newData, null, 2));
   }
 }
 

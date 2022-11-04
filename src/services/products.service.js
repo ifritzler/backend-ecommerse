@@ -1,8 +1,9 @@
 import FileSystemContainer from "../db/FileSystemContainer.js";
+import HttpError from "../utils/HttpError.js";
 
 class ProductService {
   constructor() {
-    this.repository = new FileSystemContainer("products.txt");
+    this.repository = new FileSystemContainer("products.json");
   }
 
   async all() {
@@ -14,9 +15,12 @@ class ProductService {
   }
   async getById(id) {
     try {
-      return await this.repository.getById(id);
+      // if (!entity) 
+      const product = await this.repository.getById(id);
+      if(!product) throw new HttpError(`Product with id ${id} not found`, 404);
+      return product
     } catch (error) {
-      throw new Error(`Product with id ${id} not found`);
+      throw error
     }
   }
   async save(product) {
