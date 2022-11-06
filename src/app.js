@@ -1,9 +1,11 @@
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
+import ejsConfig from "./config/ejs.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
-import ejsConfig from "./config/ejs.js";
 import productService from "./services/products.service.js";
+import { Server as httpServer } from "http";
+import { CustomSocket } from "./config/socketio.js";
 
 dotenv.config();
 
@@ -34,4 +36,7 @@ app.get("/", async (req, res, next) => {
 
 app.use(errorHandler);
 
-export default app;
+const server = new httpServer(app);
+const socketInstance = new CustomSocket(server);
+
+export default server;
