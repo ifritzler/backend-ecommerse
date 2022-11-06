@@ -7,7 +7,7 @@ router.get("/", async (req, res, next) => {
   try {
     await productsController.all(req, res);
   } catch (err) {
-    next(err)
+    next(err);
   }
 });
 
@@ -15,7 +15,7 @@ router.get("/:id", async (req, res, next) => {
   try {
     await productsController.getById(req, res);
   } catch (err) {
-    next(err)
+    next(err);
   }
 });
 
@@ -23,7 +23,7 @@ router.post("/", async (req, res, next) => {
   try {
     await productsController.save(req, res);
   } catch (err) {
-    next(err)
+    next(err);
   }
 });
 
@@ -31,15 +31,15 @@ router.put("/:id", async (req, res, next) => {
   try {
     await productsController.edit(req, res);
   } catch (err) {
-    next(err)
+    next(err);
   }
 });
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    await productsController.delete(req, res);
+    await productsController.remove(req, res);
   } catch (err) {
-    next(err)
+    next(err);
   }
 });
 

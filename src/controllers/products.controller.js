@@ -1,4 +1,4 @@
-import ProductService from "../services/products.service.js";
+import productService from "../services/products.service.js";
 
 class ProductsController {
   constructor(service) {
@@ -17,7 +17,8 @@ class ProductsController {
   async save(req, res) {
     const product = req.body;
     const newProduct = await this.service.save(product);
-    res.status(201).json({ data: newProduct });
+    // res.status(201).json({ data: newProduct });
+    res.redirect('/')
   }
   async edit(req, res) {
     const changes = req.body;
@@ -25,10 +26,11 @@ class ProductsController {
     const product = await this.service.edit(id, changes);
     res.status(200).json({ data: product });
   }
-  async remove(_req, res) {
+  async remove(req, res) {
+    const { id } = req.params;
     await this.service.remove(id);
     res.status(204).send();
   }
 }
 
-export default new ProductsController(new ProductService());
+export default new ProductsController(productService);

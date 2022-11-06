@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('./partials/head'); %>
+  </head>
+  <body class="container min-vh-100">
+    <header><%- include('./partials/header'); %></header>
+
+    <main class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Formalario de carga de productos -->
+          <%- include('./partials/forms/products'); %>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-8">
+          <%- include('./partials/lists/products'); %>
+        </div>
+      </div>
+    </main>
+    <footer class="align-bottom"><%- include('./partials/footer'); %></footer>
+  </body>
+</html>

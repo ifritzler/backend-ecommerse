@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
 import ejsConfig from "./config/ejs.js";
+import productService from "./services/products.service.js";
 
 dotenv.config();
 
@@ -20,6 +21,15 @@ app.use("/api", apiRouter);
 app.get("/api/health", (_req, res) => {
   res.status(200).send();
   res.render();
+});
+
+app.get("/", async (req, res, next) => {
+  try {
+    const products = await productService.all();
+    res.render("index", { products });
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use(errorHandler);

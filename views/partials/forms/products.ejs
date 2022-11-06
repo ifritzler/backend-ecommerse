@@ -1,0 +1,18 @@
+<h2>Ingresar nuevo producto</h2>
+<form action="/api/products" method="POST">
+  <div class="mb-3">
+    <label for="formGroupExampleInput" class="form-label">Titulo</label>
+    <input name="title" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese un titulo para su producto">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">Precio</label>
+    <input name="price" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Ingrese un precio">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput" class="form-label">Imagen (URL)</label>
+    <input name="thumbnail" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese una url valida">
+  </div>
+  <div class="mb-3">
+    <input type="submit" class="btn btn-success w-100" value="Guardar">
+  </div>
+</form>

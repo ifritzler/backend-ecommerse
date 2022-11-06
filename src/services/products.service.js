@@ -3,7 +3,7 @@ import HttpError from "../utils/HttpError.js";
 
 class ProductService {
   constructor() {
-    this.repository = new FileSystemContainer("products.json");
+    this.repository = new FileSystemContainer("products.txt");
   }
 
   async all() {
@@ -46,4 +46,4 @@ class ProductService {
   }
 }
 
-export default ProductService;
+export default new ProductService;
