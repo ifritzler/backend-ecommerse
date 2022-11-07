@@ -1,3 +1,4 @@
+import { socketInstance } from "../app.js";
 import FileSystemContainer from "../db/FileSystemContainer.js";
 import HttpError from "../utils/HttpError.js";
 
@@ -15,17 +16,21 @@ class ProductService {
   }
   async getById(id) {
     try {
-      // if (!entity) 
+      // if (!entity)
       const product = await this.repository.getById(id);
-      if(!product) throw new HttpError(`Product with id ${id} not found`, 404);
-      return product
+      if (!product) throw new HttpError(`Product with id ${id} not found`, 404);
+      return product;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async save(product) {
     try {
-      return await this.repository.save(product);
+      const newProduct = await this.repository.save(product);
+
+      // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
+      socketInstance.emitEvent("new_product", newProduct);
+      return newProduct;
     } catch (error) {
       throw error;
     }
@@ -40,10 +45,12 @@ class ProductService {
   async remove(id) {
     try {
       await this.repository.remove(id);
+      // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
+      socketInstance.emitEvent("delete_product", id);
     } catch (error) {
       throw error;
     }
   }
 }
 
-export default new ProductService;
+export default new ProductService();

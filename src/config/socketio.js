@@ -1,8 +1,8 @@
-import {Server as socketServer} from 'socket.io';
+import {Server} from 'socket.io';
 
 export class CustomSocket {
-  constructor(app) {
-    this.io = new socketServer(app)
+  constructor(httpServer) {
+    this.io = new Server(httpServer)
     this.configSockets()
   }
 
@@ -10,5 +10,13 @@ export class CustomSocket {
     this.io.on('connection',(socket) => {
       console.log('User connected', socket?.id)
     })
+  }
+
+  addEvent(name, cb) {
+    this.io.on(name, cb(socket))
+  }
+
+  emitEvent(name, data) {
+    this.io.emit(name, data)
   }
 }
