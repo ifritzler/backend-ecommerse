@@ -1,0 +1,31 @@
+<h3>Chat</h3>
+<ul class="list-group list-group-flush" style="height: 400px; overflow-y: scroll;">
+
+  <!-- Ejemplo de mensaje propio -->
+  <li href="#" class="list-group-item list-group-item-success mb-2" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <small class="mb-1">contacto.fritzlerilan@gmail.com</small>
+      <small class="text-right">15:55:04 08/11/2022</small>
+    </div>
+    <p class="mb-1">Some placeholder content in a paragraph.</p>
+  </li>
+  <!-- Ejemplo de mensaje externo -->
+  <li href="#" class="list-group-item list-group-item-secondary mb-2" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <small class="mb-1">contacto.fritzlerilan@gmail.com</small>
+      <small class="text-right">15:55:04 08/11/2022</small>
+    </div>
+    <p class="mb-1">Some placeholder content in a paragraph.</p>
+  </li>
+</ul>
+<form secondary="/api/messages" method="post">
+  <label>
+    Email
+    <input class="form-control" type="email" placeholder="Identifiquese con su email" name="email">
+  </label>
+  <label>
+    Mensaje
+    <input class="form-control" type="text placeholder="Deje su mensaje" name="text">
+  </label>
+  <input class="btn btn-dark w-100 " type="submit" value="Enviar">
+</form>

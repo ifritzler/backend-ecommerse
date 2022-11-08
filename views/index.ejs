@@ -7,16 +7,20 @@
     <header><%- include('./partials/header'); %></header>
     <main class="container">
       <div class="row">
-        <div class="col-12">
+        <div class="col container">
           <!-- Formalario de carga de productos -->
           <%- include('./partials/forms/products'); %>
         </div>
       </div>
       <hr />
       <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-lg-8 container">
           <!-- Lista de productos -->
           <%- include('./partials/lists/products'); %>
+        </div>
+        <div class="col-12 col-lg-4 container">
+          <!-- Chat -->
+          <%- include('./partials/chat/chat-container', {messages}); %>
         </div>
       </div>
     </main>

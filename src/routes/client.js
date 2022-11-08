@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", async (_req, res, next) => {
   try {
     const products = await productService.all();
-    res.render("index", { products });
+    res.render("index", { products, messages: [] });
   } catch (err) {
     next(err);
   }
