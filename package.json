@@ -5,8 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "build": "npm install",
     "dev": "nodemon -w",
-    "start": "node"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
