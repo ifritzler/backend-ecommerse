@@ -1,31 +1,67 @@
 <h3>Chat</h3>
-<ul class="list-group list-group-flush" style="height: 400px; overflow-y: scroll;">
-
-  <!-- Ejemplo de mensaje propio -->
-  <li href="#" class="list-group-item list-group-item-success mb-2" aria-current="true">
+<ul
+  class="list-group list-group-flush"
+  id="chat-list"
+  style="height: 400px; overflow-y: scroll"
+>
+  <% messages.forEach(message => { %>
+  <li class="list-group-item list-group-item-secondary mb-2">
     <div class="d-flex w-100 justify-content-between">
-      <small class="mb-1">contacto.fritzlerilan@gmail.com</small>
-      <small class="text-right">15:55:04 08/11/2022</small>
+      <small class="mb-1"><%= message.email %></small>
+      <small class="text-right"><%= message.date %></small>
     </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
+    <p class="mb-1"><%= message.text %></p>
   </li>
-  <!-- Ejemplo de mensaje externo -->
-  <li href="#" class="list-group-item list-group-item-secondary mb-2" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <small class="mb-1">contacto.fritzlerilan@gmail.com</small>
-      <small class="text-right">15:55:04 08/11/2022</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-  </li>
+  <% }) %>
 </ul>
-<form secondary="/api/messages" method="post">
+<form secondary="/api/messages" method="post" id="message-form">
   <label>
     Email
-    <input class="form-control" type="email" placeholder="Identifiquese con su email" name="email">
+    <input
+      class="form-control"
+      type="email"
+      placeholder="Identifiquese con su email"
+      name="email"
+    />
   </label>
   <label>
-    Mensaje
-    <input class="form-control" type="text placeholder="Deje su mensaje" name="text">
+    Mensaje <input class="form-control" type="text placeholder="Deje su mensaje"
+    name="text" id="form-message">
   </label>
-  <input class="btn btn-dark w-100 " type="submit" value="Enviar">
+  <input class="btn btn-dark w-100" type="submit" value="Enviar" />
 </form>
+
+<script>
+  const chatList = document.getElementById("chat-list");
+  const messageForm = document.getElementById("message-form");
+  const formInputMessage = document.getElementById('form-message');
+
+  const addMessage = (message, client = false) => {
+    const template = `<li id="${
+      message.id + "/" + message.date
+    }" class="list-group-item list-group-item-${
+      client ? "primary" : "secondary"
+    } mb-2">
+    <div class="d-flex w-100 justify-content-between">
+      <small class="mb-1">${message.email}</small>
+      <small class="text-right">${message.date}</small>
+    </div>
+    <p class="mb-1">${message.text}</p>
+  </li>`;
+
+    chatList.innerHTML += template;
+  };
+
+  messageForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = Object.fromEntries(new FormData(e.target).entries());
+    socket.emit('publish_message', message)
+    formInputMessage.value = ''
+  })
+
+  socket.on("new_message", (message) => {
+    addMessage(message);
+  });
+
+
+</script>
