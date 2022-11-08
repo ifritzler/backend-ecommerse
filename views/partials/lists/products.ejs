@@ -1,3 +1,4 @@
+<h3>Lista de productos</h3>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -67,8 +68,7 @@
         newTableRow.innerHTML = newItem;
         newTableRow.getElementsByClassName('delete-btn')[0].addEventListener("click", async (e) => {
           e.stopPropagation()
-          const { id } = e.target.dataset;
-          const response = await fetch("/api/products/" + id, {
+          const response = await fetch("/api/products/" + product.id, {
             method: "delete",
           });
         });
