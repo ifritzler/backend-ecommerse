@@ -4,15 +4,7 @@
   id="chat-list"
   style="height: 400px; overflow-y: scroll"
 >
-  <% messages.forEach(message => { %>
-  <li class="list-group-item list-group-item-secondary mb-2">
-    <div class="d-flex w-100 justify-content-between">
-      <small class="mb-1"><%= message.email %></small>
-      <small class="text-right"><%= message.date %></small>
-    </div>
-    <p class="mb-1"><%= message.text %></p>
-  </li>
-  <% }) %>
+
 </ul>
 <form secondary="/api/messages" method="post" id="message-form">
   <label>
@@ -61,6 +53,10 @@
 
   socket.on("new_message", (message) => {
     addMessage(message);
+  });
+
+  socket.on("update_messages", (messages) => {
+    messages.forEach(addMessage)
   });
 
 

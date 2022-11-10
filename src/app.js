@@ -4,17 +4,16 @@ import ejsConfig from "./config/ejs.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
 import http from "http";
-import { CustomSocket } from "./config/socketio.js";
+import { SocketConfig } from "./config/socketio.js";
 import clientRouter from "./routes/client.js";
-import messagesService from "./services/messages.service.js";
-import { chatEvents } from "./controllers/chat.socket.js";
+import { ChatEventList } from "./sockets/chat.socket.js";
 
 dotenv.config();
 
 // Express and server socket config
 const app = express();
 const server = http.createServer(app);
-export const socketInstance = new CustomSocket(server);
+export const socketInstance = new SocketConfig(server, [ChatEventList]);
 
 // Templates configure
 ejsConfig(app);
