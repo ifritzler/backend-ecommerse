@@ -59,5 +59,9 @@
     messages.forEach(addMessage)
   });
 
+  socket.on("new_client", (message) => {
+    console.log(message)
+  });
+
 
 </script>
