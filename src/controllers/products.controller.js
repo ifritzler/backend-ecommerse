@@ -1,3 +1,4 @@
+import { socketInstance } from "../app.js";
 import productService from "../services/products.service.js";
 
 class ProductsController {
@@ -17,8 +18,7 @@ class ProductsController {
   async save(req, res) {
     const product = req.body;
     const newProduct = await this.service.save(product);
-    // res.status(201).json({ data: newProduct });
-    res.redirect('/')
+    res.status(201).json(newProduct);
   }
   async edit(req, res) {
     const changes = req.body;
@@ -28,6 +28,7 @@ class ProductsController {
   }
   async remove(req, res) {
     const { id } = req.params;
+    console.log(req.params)
     await this.service.remove(id);
     res.status(204).send();
   }
