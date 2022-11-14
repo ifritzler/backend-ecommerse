@@ -1,5 +1,6 @@
 import express from "express";
 import productsController from "../controllers/products.controller.js";
+import isAdmin from '../middlewares/isAdmin.js'
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", isAdmin, async (req, res, next) => {
   try {
     await productsController.save(req, res);
   } catch (err) {
@@ -27,7 +28,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isAdmin, async (req, res, next) => {
   try {
     await productsController.edit(req, res);
   } catch (err) {
@@ -35,7 +36,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAdmin, async (req, res, next) => {
   try {
     await productsController.remove(req, res);
   } catch (err) {
