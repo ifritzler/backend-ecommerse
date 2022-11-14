@@ -1,3 +1,4 @@
+import { ProductSave, ProductEdit } from "../dto/products.dto.js";
 import productService from "../services/products.service.js";
 
 class ProductsController {
@@ -15,19 +16,18 @@ class ProductsController {
     res.status(200).json({ data: product });
   }
   async save(req, res) {
-    const product = req.body;
+    const product = new ProductSave(req.body);
     const newProduct = await this.service.save(product);
     res.status(201).json(newProduct);
   }
   async edit(req, res) {
-    const changes = req.body;
+    const changes = new ProductEdit(req.body);
     const { id } = req.params;
     const product = await this.service.edit(id, changes);
     res.status(200).json({ data: product });
   }
   async remove(req, res) {
     const { id } = req.params;
-    console.log(req.params)
     await this.service.remove(id);
     res.status(204).send();
   }
