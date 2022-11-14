@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import {v4 as uuid} from 'uuid'
-
+import {createTimestamp} from '../utils/timestamp.js';
 const BASE_DBFILES_PATH = process.cwd() + "/src/db/";
 
 class FileSystemContainer {
@@ -21,7 +21,8 @@ class FileSystemContainer {
   async save(entity) {
     try {
       const data = await this.all();
-      const newEntity = { id: uuid(), ...entity };
+      const timestamp = createTimestamp();
+      const newEntity = { id: uuid(), timestamp, ...entity };
       data.push(newEntity);
       await fs.writeFile(this.path, JSON.stringify(data, null, 2));
 

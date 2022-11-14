@@ -42,7 +42,6 @@ class ProductService {
     try {
       await this.repository.remove(id);
       // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
-      socketInstance.emitEvent("delete_product", id);
     } catch (error) {
       throw error;
     }
