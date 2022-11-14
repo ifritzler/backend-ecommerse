@@ -1,4 +1,3 @@
-import { socketInstance } from "../app.js";
 import FileSystemContainer from "../db/FileSystemContainer.js";
 import HttpError from "../utils/HttpError.js";
 
@@ -27,9 +26,6 @@ class ProductService {
   async save(product) {
     try {
       const newProduct = await this.repository.save(product);
-
-      // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
-      socketInstance.emitEvent("new_product", newProduct);
       return newProduct;
     } catch (error) {
       throw error;

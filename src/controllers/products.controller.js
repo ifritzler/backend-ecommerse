@@ -1,4 +1,3 @@
-import { socketInstance } from "../app.js";
 import productService from "../services/products.service.js";
 
 class ProductsController {
