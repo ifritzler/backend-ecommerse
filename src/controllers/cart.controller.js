@@ -22,10 +22,10 @@ class CartController {
     res.status(204).send();
   }
 
-  async getById(req, res) {
+  async getProducts(req, res) {
     const { id } = req.params;
     const cart = await this.service.getById(id);
-    res.status(200).json({ data: cart });
+    res.status(200).json({ data: cart.products });
   }
 
   async edit(req, res) {

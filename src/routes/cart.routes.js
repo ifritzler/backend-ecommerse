@@ -15,14 +15,9 @@ router.delete('/:id', async (req, res) => {
   await cartController.remove(req, res)
 })
 
-// Obtiene un carrito por id
-router.get('/:id', (req, res) => {
-  throw new HttpError('Endpoint no implementado', 500)
-})
-
 // Obtiene todos los productos de un carrito por id
-router.get('/:id/products', (req, res) => {
-  throw new HttpError('Endpoint no implementado', 500)
+router.get('/:id/products', async (req, res) => {
+  await cartController.getProducts(req, res)
 })
 
 // Guarda un producto con su cantidad en el carrito por su id
