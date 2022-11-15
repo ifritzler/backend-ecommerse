@@ -1,12 +1,13 @@
 import express from "express";
 import cartController from "../controllers/cart.controller.js";
+import { notBodyEmpty } from "../middlewares/notBodyEmpty.js";
 import HttpError from "../utils/HttpError.js";
 
 const router = express.Router();
 
 // Guarda un carrito. en caso de no recibir productos por body, la propiedad productos sera un arreglo vacio
-router.post('/', (req, res) => {
-  throw new HttpError('Endpoint no implementado', 500)
+router.post('/', notBodyEmpty, async (req, res) => {
+  await cartController.save(req, res)
 })
 
 // Elimina por completo un carrito

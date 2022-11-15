@@ -1,5 +1,5 @@
 import FileSystemContainer from "../db/FileSystemContainer.js";
-import { ProductSave } from "../dto/products.dto.js";
+import { ProductSaveDTO } from "../dto/products.dto.js";
 import HttpError from "../utils/HttpError.js";
 
 class ProductService {

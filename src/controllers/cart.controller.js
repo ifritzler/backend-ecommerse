@@ -1,6 +1,8 @@
+import { CartCreateDTO } from "../dto/cart.dto.js";
 import cartService from "../services/cart.service.js";
 import productsService from "../services/products.service.js";
 
+const cartCreateValidator = new CartCreateDTO();
 class CartController {
   constructor(service) {
     this.service = service;
@@ -28,11 +30,13 @@ class CartController {
     }
   }
 
-  async create(req, res) {
-    const product = req.body;
-    const newProduct = await this.service.save(product);
-    res.status(201).json(newProduct);
+  // Endpoint finalizado. Guarda un carrito y devuelve un id
+  async save(req, res) {
+    const cart = cartCreateValidator.validate(req.body);
+    const newCart = await this.service.save(cart);
+    res.status(201).json(newCart.id);
   }
+  
   async edit(req, res) {
     const changes = req.body;
     const { id } = req.params;

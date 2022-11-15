@@ -17,7 +17,7 @@ class CartService {
   async save(cart) {
     try {
       const newCart = await this.repository.save(cart);
-      return newCart.id;
+      return newCart;
     } catch (error) {
       throw error;
     }
