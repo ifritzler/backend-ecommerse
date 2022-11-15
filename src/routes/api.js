@@ -4,6 +4,6 @@ import cartRouter from "./cart.routes.js";
 
 const api = express.Router();
 api.use("/products", productsRouter);
-api.use('/cart', cartRouter)
+api.use("/cart", cartRouter);
 
 export default api;

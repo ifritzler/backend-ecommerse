@@ -1,31 +1,23 @@
 import FileSystemContainer from "../db/FileSystemContainer.js";
-import { ProductSave } from "../dto/products.dto.js";
 import HttpError from "../utils/HttpError.js";
 
-class ProductService {
+class CartService {
   constructor() {
-    this.repository = new FileSystemContainer("products.txt");
-  }
-  async all() {
-    try {
-      return await this.repository.all();
-    } catch (error) {
-      return [];
-    }
+    this.repository = new FileSystemContainer("cart.txt");
   }
   async getById(id) {
     try {
-      const product = await this.repository.getById(id);
-      if (!product) throw new HttpError(`Product with id ${id} not found`, 404);
-      return product;
+      const cart = await this.repository.getById(id);
+      if (!cart) throw new HttpError(`Cart with id ${id} not found`, 404);
+      return cart;
     } catch (error) {
       throw error;
     }
   }
-  async save(product) {
+  async save(cart) {
     try {
-      const newProduct = await this.repository.save(product);
-      return newProduct;
+      const newCart = await this.repository.save(cart);
+      return newCart.id;
     } catch (error) {
       throw error;
     }
@@ -47,4 +39,4 @@ class ProductService {
   }
 }
 
-export default new ProductService();
+export default new CartService();
