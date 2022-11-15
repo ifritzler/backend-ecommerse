@@ -44,14 +44,14 @@ class FileSystemContainer {
   async edit(id, changes) {
     const data = await this.all();
     let dataEdited = {}
-    let product = {}
+    let item = {}
     const newData = data.map((ent) => {
       if (ent.id == id) {
         dataEdited = { ...ent, ...changes }
-        product = ent
+        item = ent
         return dataEdited;
       }
-      return product;
+      return ent;
     });
     await fs.writeFile(this.path, JSON.stringify(newData, null, 2));
     return dataEdited

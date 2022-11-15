@@ -21,8 +21,8 @@ router.get('/:id/products', async (req, res) => {
 })
 
 // Guarda un producto con su cantidad en el carrito por su id
-router.post('/:id/products', (req, res) => {
-  throw new HttpError('Endpoint no implementado', 500)
+router.post('/:id/products', async (req, res) => {
+  await cartController.addProductToCart(req, res)
 })
 
 // Elimina un producto en el carrito por su id

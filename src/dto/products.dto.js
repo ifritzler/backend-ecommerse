@@ -44,14 +44,7 @@ class ProductEditDTO {
     if (!_.isNil(product.stock)) this.stock = product.stock;
     if (!_.isNil(product.thumbnail)) this.thumbnail = product.thumbnail;
 
-    return {
-      title: product.title,
-      description: product.description,
-      code: product.code,
-      price: product.price,
-      stock: product.stock,
-      thumbnail: product.thumbnail,
-    };
+    return this;
   }
 }
 
