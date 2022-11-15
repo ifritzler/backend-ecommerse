@@ -7,10 +7,32 @@ class CartController {
   constructor(service) {
     this.service = service;
   }
+
+  // Endpoint finalizado. Guarda un carrito y devuelve un id
+  async save(req, res) {
+    const cart = cartCreateValidator.validate(req.body);
+    const newCart = await this.service.save(cart);
+    res.status(201).json(newCart.id);
+  }
+
+  // Endpoint finalizado. Elimina un carrito por completo por id
+  async remove(req, res) {
+    const { id } = req.params;
+    await this.service.remove(id);
+    res.status(204).send();
+  }
+
   async getById(req, res) {
     const { id } = req.params;
     const cart = await this.service.getById(id);
     res.status(200).json({ data: cart });
+  }
+
+  async edit(req, res) {
+    const changes = req.body;
+    const { id } = req.params;
+    const product = await this.service.edit(id, changes);
+    res.status(200).json({ data: product });
   }
 
   // /api/carrito/:id/productos POST
@@ -28,25 +50,6 @@ class CartController {
     } catch (err) {
       next(err);
     }
-  }
-
-  // Endpoint finalizado. Guarda un carrito y devuelve un id
-  async save(req, res) {
-    const cart = cartCreateValidator.validate(req.body);
-    const newCart = await this.service.save(cart);
-    res.status(201).json(newCart.id);
-  }
-  
-  async edit(req, res) {
-    const changes = req.body;
-    const { id } = req.params;
-    const product = await this.service.edit(id, changes);
-    res.status(200).json({ data: product });
-  }
-  async remove(req, res) {
-    const { id } = req.params;
-    await this.service.remove(id);
-    res.status(204).send();
   }
 }
 

@@ -11,8 +11,8 @@ router.post('/', notBodyEmpty, async (req, res) => {
 })
 
 // Elimina por completo un carrito
-router.delete('/:id', (req, res) => {
-  throw new HttpError('Endpoint no implementado', 500)
+router.delete('/:id', async (req, res) => {
+  await cartController.remove(req, res)
 })
 
 // Obtiene un carrito por id
