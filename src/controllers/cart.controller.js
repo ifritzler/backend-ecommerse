@@ -9,7 +9,7 @@ class CartController {
   }
 
   // Endpoint finalizado. Guarda un carrito y devuelve un id
-  async save(req, res) {
+  async create(req, res) {
     const cart = cartCreateValidator.validate(req.body);
     const newCart = await this.service.save(cart);
     res.status(201).json(newCart.id);

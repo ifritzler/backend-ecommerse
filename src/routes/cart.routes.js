@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Guarda un carrito. en caso de no recibir productos por body, la propiedad productos sera un arreglo vacio
 router.post('/', notBodyEmpty, async (req, res) => {
-  await cartController.save(req, res)
+  await cartController.create(req, res)
 })
 
 // Elimina por completo un carrito
@@ -21,7 +21,7 @@ router.get('/:id/products', async (req, res) => {
 })
 
 // Guarda un producto con su cantidad en el carrito por su id
-router.post('/:id/products', async (req, res) => {
+router.post('/:id/products', notBodyEmpty, async (req, res) => {
   await cartController.addProductToCart(req, res)
 })
 
