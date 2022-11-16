@@ -8,6 +8,10 @@ class CartController {
     this.service = service;
   }
 
+  async all(req, res) {
+    res.status(200).json(await cartService.all())
+  }
+
   // Endpoint finalizado. Guarda un carrito y devuelve un id
   async create(req, res) {
     const cart = cartCreateValidator.validate(req.body);
@@ -29,7 +33,6 @@ class CartController {
     res.status(200).json({ data: cart.products });
   }
 
-  // /api/carrito/:id/productos POST
   async addProductToCart(req, res) {
     // cartId, productId, quantity
 
@@ -40,6 +43,14 @@ class CartController {
     cart.products.push(product);
 
     const newCart = await this.service.edit(id, cart);
+    return res.status(200).json(newCart);
+  }
+
+  async deleteProductInCart(req, res) {
+    const { cartId, prodId } = req.params;
+    const cart = await this.service.getById(cartId);
+    cart.products = cart.products.filter(product => product.id != prodId);
+    const newCart = await cartService.edit(cartId, cart)
     return res.status(200).json(newCart);
   }
 

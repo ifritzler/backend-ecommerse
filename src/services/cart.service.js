@@ -5,6 +5,14 @@ class CartService {
   constructor() {
     this.repository = new FileSystemContainer("cart.txt");
   }
+  async all(id) {
+    try {
+      const carts = await this.repository.all()
+      return carts;
+    } catch (error) {
+      throw error;
+    }
+  }
   async getById(id) {
     try {
       const cart = await this.repository.getById(id);
