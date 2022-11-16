@@ -7,7 +7,7 @@ class CartService {
   }
   async all(id) {
     try {
-      const carts = await this.repository.all()
+      const carts = await this.repository.all();
       return carts;
     } catch (error) {
       throw error;

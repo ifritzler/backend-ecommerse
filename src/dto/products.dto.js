@@ -6,7 +6,7 @@ class ProductSaveDTO {
 
   validate(product) {
     const emptyFields = [];
-    
+
     // Valido que el producto tenga todas sus propiedades
     if (_.isNil(product.title)) emptyFields.push("title");
     if (_.isNil(product.description)) emptyFields.push("description");
@@ -16,9 +16,7 @@ class ProductSaveDTO {
     if (_.isNil(product.thumbnail)) emptyFields.push("thumbnail");
 
     if (!_.isEmpty(emptyFields))
-      throw new Error(
-        "Product fields empty: " + _.join(emptyFields, ",")
-      );
+      throw new Error("Product fields empty: " + _.join(emptyFields, ","));
 
     return {
       title: product.title,
@@ -36,7 +34,6 @@ class ProductEditDTO {
   constructor() {}
 
   validate(product) {
-
     if (!_.isNil(product.title)) this.title = product.title;
     if (!_.isNil(product.description)) this.description = product.description;
     if (!_.isNil(product.code)) this.code = product.code;
@@ -64,9 +61,7 @@ class ProductResponseDTO {
     if (_.isNil(product.timestamp)) emptyFields.push("timestamp");
 
     if (!_.isEmpty(emptyFields))
-    throw new Error(
-      "Product fields empty: " + _.join(emptyFields, ",")
-    );
+      throw new Error("Product fields empty: " + _.join(emptyFields, ","));
 
     return {
       id: product.id,

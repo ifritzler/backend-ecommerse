@@ -9,7 +9,7 @@ class CartController {
   }
 
   async all(req, res) {
-    res.status(200).json(await cartService.all())
+    res.status(200).json(await cartService.all());
   }
 
   // Endpoint finalizado. Guarda un carrito y devuelve un id
@@ -49,11 +49,10 @@ class CartController {
   async deleteProductInCart(req, res) {
     const { cartId, prodId } = req.params;
     const cart = await this.service.getById(cartId);
-    cart.products = cart.products.filter(product => product.id != prodId);
-    const newCart = await cartService.edit(cartId, cart)
+    cart.products = cart.products.filter((product) => product.id != prodId);
+    const newCart = await cartService.edit(cartId, cart);
     return res.status(200).json(newCart);
   }
-
 }
 
 export default new CartController(cartService);

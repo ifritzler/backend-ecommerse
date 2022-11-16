@@ -1,6 +1,6 @@
 import fs from "fs/promises";
-import {v4 as uuid} from 'uuid'
-import {createTimestamp} from '../utils/timestamp.js';
+import { v4 as uuid } from "uuid";
+import { createTimestamp } from "../utils/timestamp.js";
 const BASE_DBFILES_PATH = process.cwd() + "/src/db/";
 
 class FileSystemContainer {
@@ -43,18 +43,18 @@ class FileSystemContainer {
 
   async edit(id, changes) {
     const data = await this.all();
-    let dataEdited = {}
-    let item = {}
+    let dataEdited = {};
+    let item = {};
     const newData = data.map((ent) => {
       if (ent.id == id) {
-        dataEdited = { ...ent, ...changes }
-        item = ent
+        dataEdited = { ...ent, ...changes };
+        item = ent;
         return dataEdited;
       }
       return ent;
     });
     await fs.writeFile(this.path, JSON.stringify(newData, null, 2));
-    return dataEdited
+    return dataEdited;
   }
 
   async remove(id) {

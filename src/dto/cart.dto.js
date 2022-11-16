@@ -12,7 +12,8 @@ export class CartCreateDTO {
         'the "products" field within the cart object must be an array'
       );
 
-    if(_.isNil(cart.products)) throw new Error('field products must be present in cart entity')
+    if (_.isNil(cart.products))
+      throw new Error("field products must be present in cart entity");
 
     const productsError = [];
     cart.products.forEach((product, idx) => {
@@ -23,7 +24,8 @@ export class CartCreateDTO {
       }
     });
 
-    if (!_.isEmpty(productsError)) throw new Error(JSON.stringify(productsError));
+    if (!_.isEmpty(productsError))
+      throw new Error(JSON.stringify(productsError));
 
     return {
       products: cart.products,

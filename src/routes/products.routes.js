@@ -1,6 +1,6 @@
 import express from "express";
 import productsController from "../controllers/products.controller.js";
-import isAdmin from '../middlewares/isAdmin.js'
+import isAdmin from "../middlewares/isAdmin.js";
 import { notBodyEmpty } from "../middlewares/notBodyEmpty.js";
 
 const router = express.Router();
