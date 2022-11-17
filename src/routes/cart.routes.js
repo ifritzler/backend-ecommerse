@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // Guarda un carrito. en caso de no recibir productos por body, la propiedad productos sera un arreglo vacio
-router.post("/", notBodyEmpty, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     await cartController.create(req, res);
   } catch (err) {

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "npm install",
-    "dev": "nodemon -w",
+    "dev": "nodemon .",
     "start": "node server.js"
   },
   "dependencies": {

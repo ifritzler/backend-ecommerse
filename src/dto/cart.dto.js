@@ -12,23 +12,21 @@ export class CartCreateDTO {
         'the "products" field within the cart object must be an array'
       );
 
-    if (_.isNil(cart.products))
-      throw new Error("field products must be present in cart entity");
-
     const productsError = [];
-    cart.products.forEach((product, idx) => {
-      try {
-        productResponseDTO.validate(product);
-      } catch (err) {
-        productsError.push({ index: idx, error: err.message });
-      }
-    });
+    if (cart.products)
+      cart.products.forEach((product, idx) => {
+        try {
+          productResponseDTO.validate(product);
+        } catch (err) {
+          productsError.push({ index: idx, error: err.message });
+        }
+      });
 
     if (!_.isEmpty(productsError))
       throw new Error(JSON.stringify(productsError));
 
     return {
-      products: cart.products,
+      products: cart?.products || [],
     };
   }
 }

@@ -63,16 +63,7 @@ class ProductResponseDTO {
     if (!_.isEmpty(emptyFields))
       throw new Error("Product fields empty: " + _.join(emptyFields, ","));
 
-    return {
-      id: product.id,
-      title: product.title,
-      description: product.description,
-      code: product.code,
-      price: product.price,
-      stock: product.stock,
-      thumbnail: product.thumbnail,
-      timestamp: product.timestamp,
-    };
+    return product;
   }
 }
 
