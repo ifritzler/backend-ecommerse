@@ -9,6 +9,9 @@
     "dev": "nodemon .",
     "start": "node server.js"
   },
+  "nodemonConfig": {
+    "ignore": ["/src/**/*.json"]
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
