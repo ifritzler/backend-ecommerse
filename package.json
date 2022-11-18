@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start:db:create":"node db-create.js",
     "build": "npm install",
     "dev": "nodemon -w",
     "start": "node server.js"
@@ -14,7 +15,9 @@
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
+    "knex": "^2.3.0",
     "nodemon": "^2.0.20",
-    "socket.io": "^4.5.3"
+    "socket.io": "^4.5.3",
+    "sqlite3": "^5.1.2"
   }
 }
