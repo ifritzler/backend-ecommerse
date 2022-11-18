@@ -1,13 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
+import http from "http";
 import ejsConfig from "./config/ejs.js";
+import { CustomSocket } from "./config/socketio.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
-import http from "http";
-import { CustomSocket } from "./config/socketio.js";
 import clientRouter from "./routes/client.js";
-import messagesService from "./services/messages.service.js";
-import { chatEvents } from "./controllers/chat.socket.js";
 
 dotenv.config();
 

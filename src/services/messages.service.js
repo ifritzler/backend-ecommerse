@@ -1,10 +1,10 @@
 import { socketInstance } from "../app.js";
-import FileSystemContainer from "../db/FileSystemContainer.js";
+import { DbContainer } from "../db/DbContainer.js";
 import HttpError from "../utils/HttpError.js";
 
 class MessagesService {
   constructor() {
-    this.repository = new FileSystemContainer("messages.txt");
+    this.repository = new DbContainer("messages");
   }
 
   async all() {
@@ -26,9 +26,9 @@ class MessagesService {
   }
   async save(message) {
     try {
-      message.date = new Date().toISOString()
+      message.date = new Date().toISOString();
       const newMessage = await this.repository.save(message);
-      socketInstance.emitEvent('new_message', message)
+      socketInstance.emitEvent("new_message", message);
       return newMessage;
     } catch (error) {
       throw error;

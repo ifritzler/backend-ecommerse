@@ -1,10 +1,10 @@
 import { socketInstance } from "../app.js";
-import FileSystemContainer from "../db/FileSystemContainer.js";
+import { DbContainer } from "../db/DbContainer.js";
 import HttpError from "../utils/HttpError.js";
 
 class ProductService {
   constructor() {
-    this.repository = new FileSystemContainer("products.txt");
+    this.repository = new DbContainer("products");
   }
 
   async all() {
