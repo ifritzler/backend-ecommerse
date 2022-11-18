@@ -1,12 +1,10 @@
+import { SocketRouter } from "../config/socketio.js";
 import messagesService from "../services/messages.service.js";
 
-export const chatEvents = () => {
-  return [
-    {
-      name: "publish_message",
-      callback: async (message) => {
-        await messagesService.save(message);
-      },
-    },
-  ];
-};
+const socketRouter = new SocketRouter()
+
+socketRouter.listen('publish_message', async (socket, message) => {
+  await messagesService.save(message);
+})
+
+export default socketRouter;

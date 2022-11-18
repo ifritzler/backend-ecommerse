@@ -1,29 +1,82 @@
-import { Server } from 'socket.io';
-import { chatEvents } from '../controllers/chat.socket.js';
+import { ioServer } from "./http.js";
 
-export class CustomSocket {
-  constructor(httpServer) {
-    this.io = new Server(httpServer)
-    // Registro de eventos
-    this.configSocket(chatEvents())
+class SocketRouter {
+  constructor() {
+    this.io = ioServer;
+    this.events = [];
+
+    this.onInit();
+    this.onClose();
   }
 
-  configSocket(events = []) {
-    this.io.on('connection',(socket) => {
-      console.log('User connected', socket?.id)
-      if(events){
-        events.forEach(socketEvent => {
-          socket.on(socketEvent.name, socketEvent.callback);
-        });
-      }
-    })    
+  async onInit(callback = () => {}) {
+    this.init = callback;
   }
 
-  addEvent(name, cb) {
-    this.io.on(name, cb)
+  async onClose(callback = () => {}) {
+    this.close = callback;
   }
 
-  emitEvent(name, data) {
-    this.io.emit(name, data)
+  listen(name, callback) {
+    this.events.push({ name, callback });
+  }
+
+  sendEveryone(eventName, data) {
+    this.io.emit(eventName, data);
   }
 }
+
+class SocketConfig {
+  constructor() {
+    this.server = ioServer;
+    this.routers = [];
+
+    this.onInit();
+    this.onClose();
+  }
+
+  async onInit(
+    callback = (io, socket) => {
+      console.log(`User with id ${socket.id} is connected.`);
+    }
+  ) {
+    this.init = callback;
+  }
+
+  async onClose(
+    callback = (io, socket) => {
+      console.log(`User with id ${socket.id} is disconnected.`);
+    }
+  ) {
+    this.close = callback;
+  }
+
+  use(socketRouter) {
+    this.routers.push(socketRouter);
+  }
+
+  exec() {
+    this.server.on("connection", async (socket) => {
+      this.init(this.server, socket);
+      this.routers.forEach(async (router) => {
+        await router.init(this.server, socket);
+
+        router.events.forEach((event) => {
+          // TODO
+          socket.on(event.name, (data) => {
+            event.callback(socket, data);
+          });
+        });
+        socket.on("disconnect", async () => {
+          await router.close(this.server, socket);
+          this.close(this.server, socket);
+        });
+      });
+    });
+    this.server.on("disconnect", async (socket) => {
+      this.server.emit("server_disconnect", {});
+    });
+  }
+}
+
+export { SocketRouter, SocketConfig };

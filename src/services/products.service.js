@@ -1,4 +1,4 @@
-import { socketInstance } from "../app.js";
+import productSocket from "../controllers/product.socket.js";
 import { DbContainer } from "../db/DbContainer.js";
 import HttpError from "../utils/HttpError.js";
 
@@ -27,9 +27,8 @@ class ProductService {
   async save(product) {
     try {
       const newProduct = await this.repository.save(product);
-
       // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
-      socketInstance.emitEvent("new_product", newProduct);
+      productSocket.sendEveryone("new_product", newProduct);
       return newProduct;
     } catch (error) {
       throw error;
@@ -46,7 +45,7 @@ class ProductService {
     try {
       await this.repository.remove(id);
       // Emitir a todos los clientes el nuevo producto creado para su actualizacion en la UI
-      socketInstance.emitEvent("delete_product", id);
+      productSocket.sendEveryone("delete_product", id);
     } catch (error) {
       throw error;
     }

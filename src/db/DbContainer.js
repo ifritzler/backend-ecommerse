@@ -23,7 +23,6 @@ class DbContainer {
     try {
       this.knex.initialize()
       const newEntity = await this.knex(this.table).insert(entity, '*');
-      console.info(newEntity)
       return newEntity[0];
     } catch (error) {
       throw error

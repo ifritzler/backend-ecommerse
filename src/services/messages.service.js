@@ -1,4 +1,4 @@
-import { socketInstance } from "../app.js";
+import messageSocket from "../controllers/chat.socket.js";
 import { DbContainer } from "../db/DbContainer.js";
 import HttpError from "../utils/HttpError.js";
 
@@ -28,7 +28,7 @@ class MessagesService {
     try {
       message.date = new Date().toISOString();
       const newMessage = await this.repository.save(message);
-      socketInstance.emitEvent("new_message", message);
+      messageSocket.sendEveryone("new_message", message);
       return newMessage;
     } catch (error) {
       throw error;

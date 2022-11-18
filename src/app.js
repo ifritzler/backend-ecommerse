@@ -1,18 +1,16 @@
-import dotenv from "dotenv";
-import express from "express";
-import http from "http";
+import "dotenv/config";
+import express from 'express';
 import ejsConfig from "./config/ejs.js";
-import { CustomSocket } from "./config/socketio.js";
+import { app, httpServer } from "./config/http.js";
+import { SocketConfig } from "./config/socketio.js";
+import messageSocket from "./controllers/chat.socket.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiRouter from "./routes/api.js";
 import clientRouter from "./routes/client.js";
 
-dotenv.config();
-
-// Express and server socket config
-const app = express();
-const server = http.createServer(app);
-export const socketInstance = new CustomSocket(server);
+const socketConfig = new SocketConfig();
+socketConfig.use(messageSocket);
+socketConfig.exec();
 
 // Templates configure
 ejsConfig(app);
@@ -33,4 +31,4 @@ app.get("/api/health", (_req, res) => {
 
 app.use(errorHandler);
 
-export default server;
+export default httpServer;
