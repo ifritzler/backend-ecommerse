@@ -14,5 +14,13 @@ router.get("/", async (_req, res, next) => {
   }
 });
 
+router.get("/test-products", async (_req, res, next) => {
+  try {
+    res.render("test-products", {});
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 export default router;

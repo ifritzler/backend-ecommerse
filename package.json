@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start:db:create":"node db-create.js",
+    "start:db:create": "node db-create.js",
     "build": "npm install",
     "dev": "nodemon -w",
     "start": "node server.js"
@@ -19,5 +19,8 @@
     "nodemon": "^2.0.20",
     "socket.io": "^4.5.3",
     "sqlite3": "^5.1.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
   }
 }

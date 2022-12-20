@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EJS Is Fun</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        padding-top: 50px;
+      }
+    </style>
+  </head>
+  <body class="container min-vh-100">
+    <header><%- include('./partials/header'); %></header>
+    <main class="container">
+      <div class="row">
+        <div class="col-12 col-lg-12 container">
+          <!-- Lista de productos -->
+          <%- include('./partials/lists/test-products'); %>
+        </div>
+      </div>
+    </main>
+    <footer class="align-bottom"><%- include('./partials/footer'); %></footer>
+  </body>
+</html>

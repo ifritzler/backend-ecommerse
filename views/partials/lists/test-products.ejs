@@ -1,0 +1,41 @@
+<h3>Lista de productos fake para testear</h3>
+<table class="table table-md">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titulo</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Imagen</th>
+    </tr>
+  </thead>
+  <tbody id="product-list"></tbody>
+</table>
+<script>
+  const addProduct = (product) => {
+    const productList = document.getElementById("product-list");
+    const newTableRow = document.createElement("tr");
+    const newItem = `
+        <th scope="row">${product.id}</th>
+        <td>${product.title}</td>
+        <td>$ ${product.price}</td>
+        <td>
+          <img class="img-thumbnail mx-auto d-block" style="width: 70px; aspect-ratio: 1/1" src="${product.thumbnail}" alt="${product.title}">
+        </td>
+      `;
+    newTableRow.innerHTML = newItem;
+    productList.append(newTableRow);
+  };
+
+  const fakeProducts = (async () => {
+    const response = await fetch('/api/productos-test')
+    const {data} = await response.json()
+    
+    if(data.length > 0) {
+      data.forEach(fake => {
+        console.log(fake)
+        addProduct(fake)
+      })
+    }
+  })()
+</script>
+
